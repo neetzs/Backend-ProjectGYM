@@ -38,7 +38,7 @@ builder.Services.AddAuthentication(config =>
         ValidateLifetime = true,
         ClockSkew = TimeSpan.Zero,
         IssuerSigningKey = new SymmetricSecurityKey
-        (Encoding.UTF8.GetBytes(builder.Configuration["Jtw:Key"]!))
+        (Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
     };
 });
 

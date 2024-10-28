@@ -22,7 +22,7 @@ namespace WebAPI_Log.Controllers
         }
 
         [HttpPost]
-        [Route("Registrase")]
+        [Route("Registrarse")]
 
         public async Task<IActionResult> Registrarse(UsuarioDTO objeto)
         {
