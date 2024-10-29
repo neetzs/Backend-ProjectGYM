@@ -15,7 +15,7 @@ namespace WebAPI_Log.Custom
             _configuration = configuration;
         }
 
-        public string encriptarSHA256(string texto)
+        public string EncriptarSHA256(string texto)
         {
             using (SHA256 sha256Hash = SHA256.Create())
             {
@@ -42,13 +42,13 @@ namespace WebAPI_Log.Custom
                 new Claim(ClaimTypes.Email, modelo.Correo!)
             };
 
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:key"]!));
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 
             //Crear detalle del token
             var jwlConfig = new JwtSecurityToken(
                 claims: userClaims,
-                expires: DateTime.UtcNow.AddMinutes(10),
+                expires: DateTime.UtcNow.AddMinutes(30), //aumente el tiempo
                 signingCredentials: credentials
                 );
 

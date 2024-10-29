@@ -59,7 +59,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors("New Policy");
+app.UseCors("NewPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 

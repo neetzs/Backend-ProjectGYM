@@ -30,16 +30,16 @@ namespace WebAPI_Log.Controllers
             {
                 Nombre = objeto.Nombre,
                 Correo = objeto.Correo,
-                Clave = _utilidades.encriptarSHA256(objeto.Clave),
+                Clave = _utilidades.EncriptarSHA256(objeto.Clave),
             };
 
             await _dbpruebaContext.Usuarios.AddAsync(modeloUsuario);    
             await _dbpruebaContext.SaveChangesAsync();
 
             if (modeloUsuario.IdUsuario != 0)
-                return StatusCode(StatusCodes.Status200OK, new { isSucces = true });
+                return StatusCode(StatusCodes.Status200OK, new { isSuccess = true });
             else
-                return StatusCode(StatusCodes.Status200OK, new { isSucces = true });
+                return StatusCode(StatusCodes.Status200OK, new { isSuccess = true });
         }
 
         [HttpPost]
@@ -50,13 +50,13 @@ namespace WebAPI_Log.Controllers
             var usuarioEncontrado = await _dbpruebaContext.Usuarios
                                     .Where(u =>
                                         u.Correo == objeto.Correo &&
-                                        u.Clave == _utilidades.encriptarSHA256(objeto.Clave)
+                                        u.Clave == _utilidades.EncriptarSHA256(objeto.Clave)
                                         ).FirstOrDefaultAsync();
 
             if (usuarioEncontrado == null)
-                return StatusCode(StatusCodes.Status200OK, new { isSucces = false, token = "" });
+                return StatusCode(StatusCodes.Status200OK, new { isSuccess = false, token = "" });
                     else
-                return StatusCode(StatusCodes.Status200OK, new { isSucces = true, token = _utilidades.generarJWT(usuarioEncontrado) });
+                return StatusCode(StatusCodes.Status200OK, new { isSuccess = true, token = _utilidades.generarJWT(usuarioEncontrado) });
         }
     }
 }
