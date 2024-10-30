@@ -15,6 +15,8 @@ namespace WebAPI_Log.Custom
             _configuration = configuration;
         }
 
+
+
         public string EncriptarSHA256(string texto)
         {
             using (SHA256 sha256Hash = SHA256.Create())
@@ -54,5 +56,23 @@ namespace WebAPI_Log.Custom
 
             return new JwtSecurityTokenHandler().WriteToken(jwlConfig);
         }
+
+
+        // Metodo para Validacion del Token
+        public bool validarToken(string token)
+        {
+            var claimsPrincipal = new ClaimsPrincipal();
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var validationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ValidateLifetime = true,
+                ClockSkew = TimeSpan.Zero,
+                IssuerSigningKey = new SymmetricSecurityKey
+                (Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!))
+            };
+        } 
     }
 }
